@@ -1,0 +1,4 @@
+.github/
+Dist/
+node_modules/
+cooldownDB.sqlite

@@ -1,0 +1,32 @@
+{
+  "name": "discordbot-template-ts",
+  "version": "1.0.0",
+  "description": "TypeScript version of DiscordBot-Template",
+  "main": "./Src/Bot.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && echo 'Finishing Building'",
+    "start": "node ./Dist/Bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rilecraft/discordbot-template-ts.git"
+  },
+  "author": "RileCraft",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rilecraft/discordbot-template-ts/issues"
+  },
+  "homepage": "https://github.com/rilecraft/discordbot-template-ts#readme",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "ms": "^2.1.3",
+    "tasai": "^1.0.0",
+    "undici-types": "^5.26.5"
+  },
+  "devDependencies": {
+    "@types/ms": "^0.7.34",
+    "@types/node": "^20.11.5",
+    "typescript": "^5.3.3"
+  }
+}
