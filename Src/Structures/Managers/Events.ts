@@ -7,6 +7,8 @@ export const EventManager = async(client: DiscordClient, rootPath: string): Prom
     
     for (const event of eventFiles) {
         const clientEvent: ClientEvent = (await import(event))?.Event;
+        if (!clientEvent) return;
+        
         client.events?.set(clientEvent.name, clientEvent);
 
         if (!clientEvent.ignore && clientEvent.customEvent) clientEvent.run(client);

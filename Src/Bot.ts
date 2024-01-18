@@ -9,7 +9,6 @@ import { MessageCMDManager } from "./Structures/Managers/MessageCommands.js";
 import { ModalManager } from "./Structures/Managers/ModalForms.js";
 import { SelectMenuManager } from "./Structures/Managers/SelectMenus.js";
 import { SlashManager } from "./Structures/Managers/SlashCommands.js";
-import { ContextManager } from "./Structures/Managers/ContextMenus.js";
 
 const __dirname: string = dirname(fileURLToPath(import.meta.url));
 export const rootPath = __dirname;
@@ -47,6 +46,5 @@ export const rootPath = __dirname;
     await SelectMenuManager(client, __dirname);
     await ModalManager(client, __dirname);
     await client.login(BOT_TOKEN);
-    await SlashManager(client, __dirname);
-    await ContextManager(client, __dirname);
+    await SlashManager(client, __dirname); // Includes context menu handling as they belong to same command type.
 })();

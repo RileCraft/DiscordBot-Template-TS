@@ -7,6 +7,8 @@ export const ModalManager = async(client: DiscordClient, rootPath: string): Prom
 
     for (const modalFormFile of modalFormFiles) {
         const modalForm: ModalForm = (await import(modalFormFile))?.Modal;
+        if (!modalForm) return;
+
         if (!modalForm.ignore && modalForm.name) client.modalForms?.set(modalForm.name, modalForm);
     };
 };

@@ -7,6 +7,8 @@ export const SelectMenuManager = async(client: DiscordClient, rootPath: string):
 
     for (const selectMenuFile of selectMenuFiles) {
         const selectMenu: SelectMenu = (await import(selectMenuFile))?.Menu;
+        if (!selectMenu) return;
+
         if (!selectMenu.ignore && selectMenu.name) client.selectMenus?.set(selectMenu.name, selectMenu);
     };
 };

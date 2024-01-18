@@ -4,6 +4,6 @@ BOT_TOKEN: It is the token of your bot which is to be acquired from the https://
 OWNER_IDS: It is the User IDs of the people who will be allowed to use commands that have the property ownerOnly = true.
 */
 
-export const PREFIX: Array<string> = ["Prefix"];
-export const BOT_TOKEN: string = "Bot Token";
-export const OWNER_IDS: Array<string> = ["Discord User ID"];
+export const PREFIX: Array<string> = ["PREFIX"];
+export const BOT_TOKEN: string = "BOT TOKEN";
+export const OWNER_IDS: Array<string> = ["OWNER DISCORD USER ID"];
