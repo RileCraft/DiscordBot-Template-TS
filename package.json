@@ -2,11 +2,11 @@
   "name": "discordbot-template-ts",
   "version": "1.0.0",
   "description": "TypeScript version of DiscordBot-Template",
-  "main": "./Src/Bot.ts",
+  "main": "./src/bot.ts",
   "type": "module",
   "scripts": {
     "build": "tsc && echo 'Finishing Building'",
-    "start": "node ./Dist/Bot.js"
+    "start": "node ./dist/bot.js"
   },
   "repository": {
     "type": "git",
