@@ -3,8 +3,8 @@ import { ContextMenu, SlashCommand, SlashCommandOptions } from "../../types.js";
 import { fileReader } from "../../utils/fileReader.js";
 
 export const SlashManager = async (client: DiscordClient, rootPath: string): Promise<void> => {
-    const allSlashCommandsFiles = fileReader(`${rootPath}/Interactions/SlashCommands`);
-    const allContextMenusFiles = fileReader(`${rootPath}/Interactions/ContextMenus`);
+    const allSlashCommandsFiles = fileReader(`${rootPath}/interactions/slashCommands`);
+    const allContextMenusFiles = fileReader(`${rootPath}/interactions/contextMenus`);
     const rest: REST = new REST({ version: '10' }).setToken(client.token);
 
     interface GlobalCommandArray {

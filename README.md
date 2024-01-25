@@ -18,7 +18,7 @@ The Discord Bot Template provides a solid foundation for creating feature-rich D
 - Removed `node-recursive-directory` dependency.
 - Converted from `CommonJS` to `ESM Module`.
 - Improved handling of all events, commands with lower memory usage.
-- Main file `Bot.ts` has been shifted to `Src`.
+- Main file `bot.ts` has been shifted to `src`.
 - Config file has been shifted to `Src`.
 - Moved from `Collections` to `Map`.
 - `messageCommandsAliases` has been renamed to `messageCommands_Aliases`
@@ -26,9 +26,10 @@ The Discord Bot Template provides a solid foundation for creating feature-rich D
 - Refactored command options.
 - `chalk` has been replaced with `tasai`.
 - Extended all command options support to interactions.
-- All custom types and interfaces are exported from `./Src/Types.ts`.
+- All custom types and interfaces are exported from `./src/types.ts`.
 - `SlashCommands` and `ContextMenus` has been seperated into different folders and managed differently.
-- `SlashCommands` have been simplified as now instead of `Guilds/<GuildID>/<Files Here>`, you can use `guilds: ["GUILD ID"]` property to easier manage your code and `type` property is not required as the handlers automatically assigns the `ChatInput` type.
+- `SlashCommands` have been simplified as now instead of `Guilds/<GuildID>/<Files Here>`, you can use `guilds: ["GUILD ID"]`
+- In a slashCommand you do not need to assign the `type: ApplicationCommandType` property as the handler by default assumes it as `ChatInput`.
 
 ## Documentation
 
@@ -36,31 +37,32 @@ For detailed documentation on command options and managers, please refer to the 
 
 ### Command Options
 
-- [ReturnErrors](/.github/Docs/CMDOptions/ReturnErrors.md)
-- [Ignore](/.github/Docs/CMDOptions/Ignore.md)
-- [AllClientPermissions](/.github/Docs/CMDOptions/AllClientPermissions.md)
-- [AllowBots](/.github/Docs/CMDOptions/AllowBots.md)
-- [AllowInDms](/.github/Docs/CMDOptions/AllowInDms.md)
-- [AllUserPermissions](/.github/Docs/CMDOptions/AllUserPermissions.md)
-- [AnyClientPermissions](/.github/Docs/CMDOptions/AnyClientPermissions.md)
-- [AnyUserPermissions](/.github/Docs/CMDOptions/AnyUserPermissions.md)
-- [ChannelCooldown](/.github/Docs/CMDOptions/ChannelCooldown.md)
-- [GlobalCooldown](/.github/Docs/CMDOptions/GlobalCooldown.md)
-- [GuildCooldown](/.github/Docs/CMDOptions/GuildCooldown.md)
-- [OnlyChannels](/.github/Docs/CMDOptions/OnlyChannels.md)
-- [OnlyGuilds](/.github/Docs/CMDOptions/OnlyGuilds.md)
-- [OnlyRoles](/.github/Docs/CMDOptions/OnlyRoles.md)
-- [OnlyUsers](/.github/Docs/CMDOptions/OnlyUsers.md)
-- [OwnerOnly](/.github/Docs/CMDOptions/OwnerOnly.md)
+- [ReturnErrors](/.github/DOCS/commandOptions/returnErrors.md)
+- [Ignore](/.github/DOCS/commandOptions/ignore.md)
+- [AllClientPermissions](/.github/DOCS/commandOptions/allClientPermissions.md)
+- [AllowBots](/.github/DOCS/commandOptions/allowBots.md)
+- [AllowInDms](/.github/DOCS/commandOptions/allowInDms.md)
+- [AllUserPermissions](/.github/DOCS/commandOptions/allUserPermissions.md)
+- [AnyClientPermissions](/.github/DOCS/commandOptions/anyClientPermissions.md)
+- [AnyUserPermissions](/.github/DOCS/commandOptions/anyUserPermissions.md)
+- [ChannelCooldown](/.github/DOCS/commandOptions/channelCooldown.md)
+- [GlobalCooldown](/.github/DOCS/commandOptions/globalCooldown.md)
+- [GuildCooldown](/.github/DOCS/commandOptions/guildCooldown.md)
+- [OnlyChannels](/.github/DOCS/commandOptions/onlyChannels.md)
+- [OnlyGuilds](/.github/DOCS/commandOptions/onlyGuilds.md)
+- [OnlyRoles](/.github/DOCS/commandOptions/onlyRoles.md)
+- [OnlyUsers](/.github/DOCS/commandOptions/onlyUsers.md)
+- [OwnerOnly](/.github/DOCS/commandOptions/ownerOnly.md)
 
 ### Managers
 
-- [MessageCommands](/.github/Docs/Managers/MessageCommands.md)
-- [SelectMenus](/.github/Docs/Managers/SelectMenus.md)
-- [Buttons](/.github/Docs/Managers/Buttons.md)
-- [Events](/.github/Docs/Managers/Events.md)
-- [SlashCommands](/.github/Docs/Managers/SlashCommands.md)
-- [ModalForms](/.github/Docs/Managers/ModalForms.md)
+- [MessageCommands](/.github/DOCS/managers/messageCommands.md)
+- [SelectMenus](/.github/DOCS/managers/selectMenus.md)
+- [Buttons](/.github/DOCS/managers/buttons.md)
+- [Events](/.github/DOCS/managers/events.md)
+- [ContextMenus](/.github/DOCS/managers/contextMenus.md)
+- [SlashCommands](/.github/DOCS/managers/slashCommands.md)
+- [ModalForms](/.github/DOCS/managers/modalForms.md)
 
 ## Features
 
@@ -92,7 +94,7 @@ To get started with the Discord Bot Template, follow these steps:
 
 1. Clone the repository by downloading it as a ZIP file or running the command `git clone https://github.com/rilecraft/discordbot-template-ts`.
 2. Navigate to the template's directory and run the command `npm install` (make sure npm is installed).
-3. Once all the required modules are installed, open the `Src/Config.ts` file and fill in the necessary information.
+3. Once all the required modules are installed, open the `src/config.ts` file and fill in the necessary information.
 4. Run the command `npm run build && npm run start` to start the bot.
 
 ## Contribution

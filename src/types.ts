@@ -1,4 +1,4 @@
-import { AnySelectMenuInteraction, ApplicationCommandOptionType, ApplicationCommandType, ButtonInteraction, ChatInputCommandInteraction, DiscordClient, Message, MessageContextMenuCommandInteraction, ModalSubmitInteraction, PermissionsBitField, UserContextMenuCommandInteraction } from "discord.js";
+import { AnySelectMenuInteraction, ApplicationCommandOptionType, ApplicationCommandType, ButtonInteraction, ChatInputCommandInteraction, DiscordClient, Message, MessageContextMenuCommandInteraction, ModalSubmitInteraction, UserContextMenuCommandInteraction } from "discord.js";
 
 // Main Types
 declare module "discord.js" {
@@ -16,10 +16,10 @@ declare module "discord.js" {
 
 export interface CommandOptions {
     allowInDms?: boolean,
-    allClientPermissions?: Array<PermissionsBitField>,
-    allUserPermissions?: Array<PermissionsBitField>,
-    anyClientPermissions?: Array<PermissionsBitField>,
-    anyUserPermissions?: Array<PermissionsBitField>,
+    allClientPermissions?: Array<bigint>,
+    allUserPermissions?: Array<bigint>,
+    anyClientPermissions?: Array<bigint>,
+    anyUserPermissions?: Array<bigint>,
     channelCooldown?: number,
     globalCooldown?: number,
     guildCooldown?: number,

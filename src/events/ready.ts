@@ -12,7 +12,7 @@ export const Event: ClientEvent = {
             type: ActivityType.Watching
         });
     
-        let allSlashCommands: Array<string> = fileReader(`${rootPath}/Interactions/SlashCommands`);
+        let allSlashCommands: Array<string> = fileReader(`${rootPath}/interactions/slashCommands`);
         allSlashCommands = await allSlashCommands.reduce(async(array: any, slash: string): Promise<Array<string>> => {
             const command: SlashCommand | undefined = (await import(slash))?.Slash;
 
@@ -20,7 +20,7 @@ export const Event: ClientEvent = {
             else return (await array).concat(slash)
         }, []);
 
-        let allContextMenus: Array<string> = fileReader(`${rootPath}/Interactions/ContextMenus`);
+        let allContextMenus: Array<string> = fileReader(`${rootPath}/interactions/contextMenus`);
         allContextMenus = await allContextMenus.reduce(async(array: any, context: string): Promise<Array<string>> => {
             const command: ContextMenu | undefined = (await import(context))?.Context;
 

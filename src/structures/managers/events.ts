@@ -3,7 +3,7 @@ import { ClientEvent } from "../../types.js";
 import { fileReader } from "../../utils/fileReader.js";
 
 export const EventManager = async(client: DiscordClient, rootPath: string): Promise<void> => {
-    const eventFiles: Array<string> = fileReader(`${rootPath}/Events`);
+    const eventFiles: Array<string> = fileReader(`${rootPath}/events`);
     
     for (const event of eventFiles) {
         const clientEvent: ClientEvent = (await import(event))?.Event;
