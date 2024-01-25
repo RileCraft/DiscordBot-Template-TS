@@ -10,7 +10,7 @@ export const MessageCMDManager = async(client: DiscordClient, rootPath: string):
         if (!messageCommand) return;
 
         if (!messageCommand.ignore && messageCommand.name) client.messageCommands?.set(messageCommand.name.toLowerCase(), messageCommand);
-        else if (!messageCommand.ignore && messageCommand.aliases && Array.isArray(messageCommand.aliases)) messageCommand.aliases.forEach((messageCommandAlias: string) => {
+        if (!messageCommand.ignore && messageCommand.aliases && Array.isArray(messageCommand.aliases)) messageCommand.aliases.forEach((messageCommandAlias: string) => {
             client.messageCommands_Aliases?.set(messageCommandAlias, messageCommand.name);
         });
     };

@@ -1,4 +1,4 @@
-import { DiscordClient, Interaction } from "discord.js";
+import { DiscordClient, Interaction } from 'discord.js';
 import commandOptionsChecker from "../structures/commandOptions/processor.js";
 import { ButtonCommand, ClientEvent, ContextMenu, ModalForm, SelectMenu, SlashCommand } from "../types.js";
 
@@ -11,6 +11,14 @@ export const Event: ClientEvent = {
             
             if (!await commandOptionsChecker(client, interaction, slashCommand, "SlashCommand")) return;
             else slashCommand.run(interaction, client);
+        }
+
+        else if (interaction.isAutocomplete()) {
+            const slashCommand: SlashCommand | undefined = client.slashCommands?.get(interaction.commandName);
+            if (!slashCommand || !slashCommand.autocomplete) return;
+            
+            if (!await commandOptionsChecker(client, interaction, slashCommand, "SlashCommand")) return;
+            else slashCommand.autocomplete(interaction, client);
         }
 
         else if (interaction.isContextMenuCommand()) {
@@ -43,6 +51,6 @@ export const Event: ClientEvent = {
 
             if (!await commandOptionsChecker(client, interaction, modalInteraction, "ModalForm")) return;
             else modalInteraction.run(interaction, client);
-        }
+        };
     }
 }; // InteractionCreate event to handle all interactions and execute them.

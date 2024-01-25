@@ -2,14 +2,18 @@
 ## Format
 ```js
 import { SlashCommand } from "../../types.js";
+import { ChatInputCommandInteraction, AutocompleteInteraction } from "discord.js";
 
 export const Slash: SlashCommand = {
     name: "commandname",
     description: "short description",
     // Other Command Options
-    guilds: ["GUILD ID"], // If you make to make a guild command. (Optional), By default it will be global.
+    guilds: ["Guild ID"], // If you make to make a guild command. (Optional), By default it will be global.
+    autocomplete: (interaction, client): void => {
+        // Code here
+    }, // Code for the autocomplete command option (optional)
     run: (interaction, client): void => {
-        // Code
+        // Code here
     }
 };
 ```
@@ -32,11 +36,27 @@ export const Slash: SlashCommand = {
                     value: "client"
                 }
             ]
+        },
+        {
+            name: "autocomplete",
+            type: ApplicationCommandOptionType.String,
+            required: false,
+            description: "auto",
+            autocomplete: true
         }
     ],
     description: "pong description",
+    autocomplete: (interaction): void => {
+        const focusedValue = interaction.options.getFocused();
+		const choices = ['Popular Topics: Threads', 'Sharding: Getting started', 'Library: Voice Connections', 'Interactions: Replying to slash commands', 'Popular Topics: Embed preview'];
+		const filtered = choices.filter(choice => choice.startsWith(focusedValue));
+		interaction.respond(
+			filtered.map(choice => ({ name: choice, value: choice })),
+		);
+    },
     run: (interaction, client): void => {
         console.log(`${interaction.user.username} chose ${interaction.options.getString("type")}`)
+        console.log(`${interaction.user.username} chose ${interaction.options.getString("autocomplete") ?? "None"}`)
     }
 };
 ```

@@ -1,4 +1,4 @@
-import { AnySelectMenuInteraction, ApplicationCommandOptionType, ApplicationCommandType, ButtonInteraction, ChatInputCommandInteraction, DiscordClient, Message, MessageContextMenuCommandInteraction, ModalSubmitInteraction, UserContextMenuCommandInteraction } from "discord.js";
+import { AnySelectMenuInteraction, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ButtonInteraction, ChatInputCommandInteraction, DiscordClient, Message, MessageContextMenuCommandInteraction, ModalSubmitInteraction, UserContextMenuCommandInteraction } from "discord.js";
 
 // Main Types
 declare module "discord.js" {
@@ -81,7 +81,8 @@ export interface ModalForm extends CommandOptions {
 export interface SlashCommandOptions {
     name: string,
     description: string,
-    required?: boolean,
+    required: boolean,
+    autocomplete?: boolean,
     choices?: Array<{
         name: string,
         value: string
@@ -97,6 +98,7 @@ export interface SlashCommand extends CommandOptions {
     guilds?: Array<string>,
     ignore?: boolean,
     options?: Array<SlashCommandOptions>,
+    autocomplete?: (interaction: AutocompleteInteraction<"cached">, client: DiscordClient) => Promise<void> | void,
     run: (interaction: ChatInputCommandInteraction<"cached">, client: DiscordClient) => Promise<void> | void
 }; // SlashCommands Interface
 

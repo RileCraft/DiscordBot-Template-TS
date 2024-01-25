@@ -4,8 +4,8 @@ import { SelectMenu } from "../../types.js";
 export const Menu: SelectMenu = {
     name: "SelectMenuExample",
     run: (interaction): void => {
-        const stringSelectMenuInteraction = interaction as StringSelectMenuInteraction; // If you want to use StringSelectMenuInteraction specifically.
-        stringSelectMenuInteraction.reply({
+        interaction = interaction as StringSelectMenuInteraction<"cached">; // If you want to use StringSelectMenuInteraction specifically.
+        interaction.reply({
             content: "Here is your cookie! :cookie:"
         });
     }

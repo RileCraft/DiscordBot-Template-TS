@@ -16,6 +16,7 @@ The Discord Bot Template provides a solid foundation for creating feature-rich D
 - Latest Discord.js adaptation.
 - Following JavaScript Naming Convention.
 - Removed `node-recursive-directory` dependency.
+- Support for `AutoCompleteInteraction` added.
 - Converted from `CommonJS` to `ESM Module`.
 - Improved handling of all events, commands with lower memory usage.
 - Main file `bot.ts` has been shifted to `src`.
