@@ -7,7 +7,7 @@ export const MessageCMDManager = async(client: DiscordClient, rootPath: string):
 
     for (const messageCommandFile of messageCommandsFiles) {
         const messageCommand: MessageCommand = (await import(messageCommandFile))?.MsgCommand;
-        if (!messageCommand) return;
+        if (!messageCommand) continue;
 
         if (!messageCommand.ignore && messageCommand.name) client.messageCommands?.set(messageCommand.name.toLowerCase(), messageCommand);
         if (!messageCommand.ignore && messageCommand.aliases && Array.isArray(messageCommand.aliases)) messageCommand.aliases.forEach((messageCommandAlias: string) => {

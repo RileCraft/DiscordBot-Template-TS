@@ -7,8 +7,8 @@ export const ButtonManager = async(client: DiscordClient, rootPath: string): Pro
 
     for (const buttonCommandFile of buttonCommandFiles) {
         const buttonCommand: ButtonCommand = (await import(buttonCommandFile))?.Button;
+        if (!buttonCommand) continue;
         
-        if (!buttonCommand) return;
-        if (!buttonCommand.ignore && buttonCommand.name) client.buttonCommands?.set(buttonCommand.name, buttonCommand); 
+        if (!buttonCommand?.ignore && buttonCommand?.name) client.buttonCommands?.set(buttonCommand?.name, buttonCommand); 
     };
 };
