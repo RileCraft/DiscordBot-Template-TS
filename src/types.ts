@@ -81,7 +81,7 @@ export interface ModalForm extends CommandOptions {
 export interface SlashCommandOptions {
     name: string,
     description: string,
-    required: boolean,
+    required?: boolean,
     autocomplete?: boolean,
     choices?: Array<{
         name: string,
