@@ -28,57 +28,61 @@ export const SlashManager = async (client: DiscordClient, rootPath: string): Pro
     const guildCommandsObject: GuildCommandObjects = {};
     const globalCommandsArray: Array<GlobalCommandArray> = [];
 
-    if (allSlashCommandsFiles.length > 0) allSlashCommandsFiles.forEach(async(slashCommandFile: string) => {
-        const slashCommand: SlashCommand | undefined = (await import(slashCommandFile))?.Slash;
-        if (!slashCommand) return;
+    if (allSlashCommandsFiles.length > 0) {
+        for (const slashCommandFile of allSlashCommandsFiles) {
+            const slashCommand: SlashCommand | undefined = (await import(slashCommandFile))?.Slash;
+            if (!slashCommand) continue;
 
-        if (slashCommand?.ignore || !slashCommand?.name || !slashCommand.description) return;
-        client.slashCommands?.set(slashCommand.name, slashCommand);
+            if (slashCommand?.ignore || !slashCommand?.name || !slashCommand.description) continue;
+            client.slashCommands?.set(slashCommand.name, slashCommand);
 
-        if (slashCommand.guilds && Array.isArray(slashCommand.guilds)) {
-            for (const guild of slashCommand.guilds) {
-                if (!guildCommandsObject[guild]) guildCommandsObject[guild] = [];
+            if (slashCommand.guilds && Array.isArray(slashCommand.guilds)) {
+                for (const guild of slashCommand.guilds) {
+                    if (!guildCommandsObject[guild]) guildCommandsObject[guild] = [];
 
-                guildCommandsObject[guild].push({
-                    name: slashCommand.name,
-                    nsfw: slashCommand.nsfw ?? false,
-                    description: slashCommand.description,
-                    type: ApplicationCommandType.ChatInput,
-                    options: slashCommand.options ?? []
-                })
-            };
-        } else return globalCommandsArray.push({
-            name: slashCommand.name,
-            nsfw: slashCommand.nsfw ?? false,
-            description: slashCommand.description,
-            type: ApplicationCommandType.ChatInput,
-            options: slashCommand.options ?? []
-        })
-    });
+                    guildCommandsObject[guild].push({
+                        name: slashCommand.name,
+                        nsfw: slashCommand.nsfw ?? false,
+                        description: slashCommand.description,
+                        type: ApplicationCommandType.ChatInput,
+                        options: slashCommand.options ?? []
+                    })
+                };
+            } else globalCommandsArray.push({
+                name: slashCommand.name,
+                nsfw: slashCommand.nsfw ?? false,
+                description: slashCommand.description,
+                type: ApplicationCommandType.ChatInput,
+                options: slashCommand.options ?? []
+            })
+        };
+    };
 
-    if (allContextMenusFiles.length > 0) allContextMenusFiles.forEach(async(contextMenuFile: string) => {
-        const contextMenu: ContextMenu | undefined = (await import(contextMenuFile))?.Context;
-        if (!contextMenu) return;
+    if (allContextMenusFiles.length > 0) {
+        for (const contextMenuFile of allContextMenusFiles) {
+            const contextMenu: ContextMenu | undefined = (await import(contextMenuFile))?.Context;
+            if (!contextMenu) continue;
 
-        if (contextMenu?.ignore || !contextMenu?.name || !contextMenu?.type) return; 
-        client.contextMenus?.set(contextMenu.name, contextMenu);
+            if (contextMenu?.ignore || !contextMenu?.name || !contextMenu?.type) continue;
+            client.contextMenus?.set(contextMenu.name, contextMenu);
 
-        if (contextMenu.guilds && Array.isArray(contextMenu.guilds)) {
-            for (const guild of contextMenu.guilds) {
-                if (!guildCommandsObject[guild]) guildCommandsObject[guild] = [];
+            if (contextMenu.guilds && Array.isArray(contextMenu.guilds)) {
+                for (const guild of contextMenu.guilds) {
+                    if (!guildCommandsObject[guild]) guildCommandsObject[guild] = [];
 
-                guildCommandsObject[guild].push({
-                    name: contextMenu.name,
-                    type: contextMenu.type
-                })
-            };
-        }
+                    guildCommandsObject[guild].push({
+                        name: contextMenu.name,
+                        type: contextMenu.type
+                    })
+                };
+            }
 
-        else return globalCommandsArray.push({
-            name: contextMenu.name,
-            type: contextMenu.type
-        })
-    });
+            else globalCommandsArray.push({
+                name: contextMenu.name,
+                type: contextMenu.type
+            })
+        };
+    };
 
     try {
         await rest.put(Routes.applicationCommands(client.application.id), {

@@ -1,6 +1,6 @@
 {
   "name": "discordbot-template-ts",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "TypeScript version of DiscordBot-Template",
   "main": "./src/bot.ts",
   "type": "module",
