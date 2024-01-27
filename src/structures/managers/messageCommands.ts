@@ -4,6 +4,7 @@ import { fileReader } from "../../utils/fileReader.js";
 
 export const MessageCMDManager = async(client: DiscordClient, rootPath: string): Promise<void> => {
     const messageCommandsFiles: Array<string> = fileReader(`${rootPath}/messageCommands`);
+    if (!messageCommandsFiles.length) return;
 
     for (const messageCommandFile of messageCommandsFiles) {
         const messageCommand: MessageCommand = (await import(messageCommandFile))?.MsgCommand;

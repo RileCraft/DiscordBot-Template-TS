@@ -4,6 +4,7 @@ import { fileReader } from "../../utils/fileReader.js";
 
 export const EventManager = async(client: DiscordClient, rootPath: string): Promise<void> => {
     const eventFiles: Array<string> = fileReader(`${rootPath}/events`);
+    if (!eventFiles.length) return;
     
     for (const event of eventFiles) {
         const clientEvent: ClientEvent = (await import(event))?.Event;

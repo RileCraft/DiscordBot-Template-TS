@@ -4,6 +4,7 @@ import { fileReader } from "../../utils/fileReader.js";
 
 export const SelectMenuManager = async(client: DiscordClient, rootPath: string): Promise<void> => {
     const selectMenuFiles: Array<string> = fileReader(`${rootPath}/interactions/selectMenus`);
+    if (!selectMenuFiles.length) return;
 
     for (const selectMenuFile of selectMenuFiles) {
         const selectMenu: SelectMenu = (await import(selectMenuFile))?.Menu;
