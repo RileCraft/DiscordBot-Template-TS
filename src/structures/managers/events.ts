@@ -1,5 +1,6 @@
 import { DiscordClient } from "discord.js";
 import { ClientEvent } from "../../types.js";
+import { pathToFileURL } from "node:url";
 import { fileReader } from "../../utils/fileReader.js";
 
 export const EventManager = async(client: DiscordClient, rootPath: string): Promise<void> => {
@@ -7,7 +8,7 @@ export const EventManager = async(client: DiscordClient, rootPath: string): Prom
     if (!eventFiles.length) return;
     
     for (const event of eventFiles) {
-        const clientEvent: ClientEvent = (await import(event))?.Event;
+        const clientEvent: ClientEvent = (await import(pathToFileURL(event).href))?.Event;
         if (clientEvent.ignore) continue;
         
         client.events?.set(clientEvent.name, clientEvent);

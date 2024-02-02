@@ -1,5 +1,6 @@
 import { DiscordClient } from "discord.js";
 import { ModalForm } from "../../types.js";
+import { pathToFileURL } from "node:url";
 import { fileReader } from "../../utils/fileReader.js";
 
 export const ModalManager = async(client: DiscordClient, rootPath: string): Promise<void> => {
@@ -7,7 +8,7 @@ export const ModalManager = async(client: DiscordClient, rootPath: string): Prom
     if (!modalFormFiles.length) return;
 
     for (const modalFormFile of modalFormFiles) {
-        const modalForm: ModalForm = (await import(modalFormFile))?.Modal;
+        const modalForm: ModalForm = (await import(pathToFileURL(modalFormFile).href))?.Modal;
         if (!modalForm) continue;
 
         if (!modalForm.ignore && modalForm.name) client.modalForms?.set(modalForm.name, modalForm);
