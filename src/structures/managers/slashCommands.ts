@@ -1,7 +1,6 @@
 import { ApplicationCommandType, DiscordClient, REST, Routes } from "discord.js";
 import { ContextMenu, SlashCommand, SlashCommandOptions } from "../../types.js";
 import { fileReader } from "../../utils/fileReader.js";
-import { pathToFileURL } from "node:url";
 
 export const SlashManager = async (client: DiscordClient, rootPath: string): Promise<void> => {
     const allSlashCommandsFiles = fileReader(`${rootPath}/interactions/slashCommands`);
@@ -31,7 +30,7 @@ export const SlashManager = async (client: DiscordClient, rootPath: string): Pro
 
     if (allSlashCommandsFiles.length > 0) {
         for (const slashCommandFile of allSlashCommandsFiles) {
-            const slashCommand: SlashCommand | undefined = (await import(pathToFileURL(slashCommandFile).href))?.Slash;
+            const slashCommand: SlashCommand | undefined = (await import(`file:///${slashCommandFile}`))?.Slash;
             if (!slashCommand) continue;
 
             if (slashCommand?.ignore || !slashCommand?.name || !slashCommand.description) continue;
@@ -61,7 +60,7 @@ export const SlashManager = async (client: DiscordClient, rootPath: string): Pro
 
     if (allContextMenusFiles.length > 0) {
         for (const contextMenuFile of allContextMenusFiles) {
-            const contextMenu: ContextMenu | undefined = (await import(pathToFileURL(contextMenuFile).href))?.Context;
+            const contextMenu: ContextMenu | undefined = (await import(`file:///${contextMenuFile}`))?.Context;
             if (!contextMenu) continue;
 
             if (contextMenu?.ignore || !contextMenu?.name || !contextMenu?.type) continue;

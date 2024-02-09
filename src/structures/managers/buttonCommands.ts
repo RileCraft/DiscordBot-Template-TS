@@ -1,6 +1,5 @@
 import { DiscordClient } from "discord.js";
 import { ButtonCommand } from "../../types.js";
-import { pathToFileURL } from "node:url";
 import { fileReader } from "../../utils/fileReader.js";
 
 export const ButtonManager = async(client: DiscordClient, rootPath: string): Promise<void> => {
@@ -8,7 +7,7 @@ export const ButtonManager = async(client: DiscordClient, rootPath: string): Pro
     if (!buttonCommandFiles.length) return;
 
     for (const buttonCommandFile of buttonCommandFiles) {
-        const buttonCommand: ButtonCommand = (await import(pathToFileURL(buttonCommandFile).href))?.Button;
+        const buttonCommand: ButtonCommand = (await import(`file:///${buttonCommandFile}`))?.Button;
         if (!buttonCommand) continue;
         
         if (!buttonCommand?.ignore && buttonCommand?.name) client.buttonCommands?.set(buttonCommand?.name, buttonCommand); 

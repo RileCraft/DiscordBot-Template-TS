@@ -1,6 +1,5 @@
 import { MessageCommand } from "../../types.js";
 import { DiscordClient } from "discord.js";
-import { pathToFileURL } from "node:url";
 import { fileReader } from "../../utils/fileReader.js";
 
 export const MessageCMDManager = async(client: DiscordClient, rootPath: string): Promise<void> => {
@@ -8,7 +7,7 @@ export const MessageCMDManager = async(client: DiscordClient, rootPath: string):
     if (!messageCommandsFiles.length) return;
 
     for (const messageCommandFile of messageCommandsFiles) {
-        const messageCommand: MessageCommand = (await import(pathToFileURL(messageCommandFile).href))?.MsgCommand;
+        const messageCommand: MessageCommand = (await import(`file:///${messageCommandFile}`))?.MsgCommand;
         if (!messageCommand) continue;
 
         if (!messageCommand.ignore && messageCommand.name) client.messageCommands?.set(messageCommand.name.toLowerCase(), messageCommand);

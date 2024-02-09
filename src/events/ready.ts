@@ -1,6 +1,5 @@
 import { ActivityType, DiscordClient } from "discord.js";
 import { rootPath } from "../bot.js";
-import { pathToFileURL } from "node:url";
 import { ClientEvent, ContextMenu, SlashCommand } from "../types.js";
 import { fileReader } from "../utils/fileReader.js";
 import { t } from "tasai";
@@ -15,7 +14,7 @@ export const Event: ClientEvent = {
     
         let allSlashCommands: Array<string> = fileReader(`${rootPath}/interactions/slashCommands`);
         allSlashCommands = await allSlashCommands.reduce(async(array: any, slash: string): Promise<Array<string>> => {
-            const command: SlashCommand | undefined = (await import(pathToFileURL(slash).href))?.Slash;
+            const command: SlashCommand | undefined = (await import(`file:///${slash}`))?.Slash;
 
             if (command?.ignore || !command?.name) return array;
             else return (await array).concat(slash)
@@ -23,7 +22,7 @@ export const Event: ClientEvent = {
 
         let allContextMenus: Array<string> = fileReader(`${rootPath}/interactions/contextMenus`);
         allContextMenus = await allContextMenus.reduce(async(array: any, context: string): Promise<Array<string>> => {
-            const command: ContextMenu | undefined = (await import(pathToFileURL(context).href))?.Context;
+            const command: ContextMenu | undefined = (await import(`file:///${context}`))?.Context;
 
             if (command?.ignore || !command?.name || !command?.type) return array;
             else return (await array).concat(context)
