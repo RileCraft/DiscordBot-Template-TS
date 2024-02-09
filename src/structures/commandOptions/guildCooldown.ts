@@ -1,26 +1,15 @@
 import { EmbedBuilder, Interaction, Message, DiscordClient } from "discord.js";
 import { AnyCommand, InteractionTypeOptions } from "../../types.js";
-import { join } from "path";
-import { rootPath } from "../../bot.js";
-import { appendFile, readFileSync } from "fs";
 
 export const guildCooldownFN = async(client: DiscordClient, message: Message | Interaction<"cached">, command: AnyCommand, interactionType: InteractionTypeOptions): Promise<boolean> => {
     if (!command.guildCooldown || isNaN(command.guildCooldown) || !message.guild) return true;
 
     const dbData = `guildCooldown.${message.guild?.id}.${interactionType}.${command.name}.${message.member?.id}`;
     const currentTime: number = Date.now();
-    let storedTime: number;
-
-    try {
-        storedTime = Number(readFileSync(join(rootPath, "cooldownDB.txt"), { encoding: 'utf8', flag: 'r' }).split("\n").filter((stuff: string) => stuff === dbData)[0].split(".")[5]);
-    } catch {
-        storedTime = 0;
-    };
+    const storedTime: number = client.cooldownDB?.get(dbData) ?? 0;
 
     if (Math.floor(currentTime - storedTime) >= command.guildCooldown || !storedTime) {
-        appendFile(join(rootPath, "cooldownDB.txt"), `${dbData}.${currentTime}`, (error) => {
-            if (error) console.error("cooldownDB.txt did not exist, creating . . .")
-        });
+        client.cooldownDB?.set(dbData, currentTime);
         return true;
     } else {
         if (command.returnErrors == false || command.returnGuildCooldownError === false) return false;

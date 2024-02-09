@@ -1,8 +1,10 @@
 import { AnySelectMenuInteraction, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ButtonInteraction, ChatInputCommandInteraction, DiscordClient, Message, MessageContextMenuCommandInteraction, ModalSubmitInteraction, UserContextMenuCommandInteraction } from "discord.js";
+import JSONdb from "simple-json-db";
 
 // Main Types
 declare module "discord.js" {
     export interface DiscordClient extends Client<true> {
+        cooldownDB?: JSONdb
         messageCommands?: Map<string, MessageCommand>,
         messageCommands_Aliases?: Map<string, string>,
         events?: Map<string, ClientEvent>,

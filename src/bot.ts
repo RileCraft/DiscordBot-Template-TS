@@ -1,6 +1,7 @@
 import { Client, DiscordClient, GatewayIntentBits, Partials } from "discord.js";
 import { BOT_TOKEN } from "./config.js";
 import { dirname } from "path";
+import JSONdb from 'simple-json-db';
 import { ButtonCommand, ClientEvent, ContextMenu, MessageCommand, ModalForm, SelectMenu, SlashCommand } from "./types.js";
 import { ButtonManager } from "./structures/managers/buttonCommands.js";
 import { EventManager } from "./structures/managers/events.js";
@@ -29,6 +30,8 @@ export const rootPath = __dirname;
         ],
         partials: [Partials.Channel]
     });
+
+    client.cooldownDB = new JSONdb("./cooldownDB.json");
 
     client.messageCommands = new Map<string, MessageCommand>();
     client.messageCommands_Aliases = new Map<string, string>();
