@@ -1,6 +1,6 @@
 import { EmbedBuilder, Interaction, Message, DiscordClient } from "discord.js";
 import { AnyCommand, InteractionTypeOptions } from "../../types.js";
-import { appendFileSync, readFileSync } from "fs";
+import { appendFile, readFileSync } from "fs";
 import { join } from "path";
 import { rootPath } from "../../bot.js";
 
@@ -12,13 +12,15 @@ export const channelCooldownFN = async(client: DiscordClient, message: Message |
     let storedTime: number;
 
     try {
-        storedTime = Number(readFileSync(join(rootPath, "CooldownDB.txt"), { encoding: 'utf8', flag: 'r' }).split("\n").filter((stuff: string) => stuff === dbData)[0].split(".")[4]);
+        storedTime = Number(readFileSync(join(rootPath, "cooldownDB.txt"), { encoding: 'utf8', flag: 'r' }).split("\n").filter((stuff: string) => stuff === dbData)[0].split(".")[4]);
     } catch {
         storedTime = 0;
     };
 
     if (Math.floor(currentTime - storedTime) >= command.channelCooldown || !storedTime) {
-        appendFileSync(join(rootPath, "CooldownDB.txt"), `${dbData}.${currentTime}`);
+        appendFile(join(rootPath, "cooldownDB.txt"), `${dbData}.${currentTime}`, (error) => {
+            if (error) console.error("cooldownDB.txt did not exist, creating . . .")
+        });
         return true;
     } else {
         if (command.returnErrors === false || command.returnChannelCooldownError === false) return false;
