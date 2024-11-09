@@ -1,4 +1,4 @@
-import { DiscordClient, EmbedBuilder, Interaction, Message } from "discord.js";
+import { ChannelType, DiscordClient, EmbedBuilder, Interaction, Message } from "discord.js";
 import { OWNER_IDS } from "../../config.js";
 import { AnyCommand } from "../../types.js";
 
@@ -7,7 +7,9 @@ export const ownerOnlyFN = (client: DiscordClient, message: Message | Interactio
     if (OWNER_IDS.some((userID: string) => userID == ((message as Interaction<"cached">).user ?? (message as Message).author)?.id)) return true;
     else {
         if (command.returnErrors === false || command.returnOwnerOnlyError === false) return false;
-        message.channel?.send({
+        if (!message.channel || message.channel.type != ChannelType.GuildText) return false
+
+        message.channel.send({
             embeds: [
                 new EmbedBuilder()
                 .setColor("DarkRed")

@@ -1,5 +1,5 @@
 import { inspect } from "util";
-import { ButtonBuilder, ActionRowBuilder, ButtonStyle } from "discord.js";
+import { ChannelType, ButtonBuilder, ActionRowBuilder, ButtonStyle } from "discord.js";
 import { MessageCommand } from "../types.js";
 
 export const MsgCommand: MessageCommand = {
@@ -16,6 +16,8 @@ export const MsgCommand: MessageCommand = {
         let code: string = args.join(" ").trim();
         let depth: number = 0;
         const originalCode: string = code;
+
+        if (!message.channel || message.channel.type != ChannelType.GuildText) return
 
         if (!code) {message.channel.send({ content: "Please specify something to Evaluate" }); return;}
         try {

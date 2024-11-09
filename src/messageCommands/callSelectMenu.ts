@@ -1,9 +1,11 @@
-import { ActionRowBuilder, StringSelectMenuBuilder } from "discord.js";
+import { ChannelType, ActionRowBuilder, StringSelectMenuBuilder } from "discord.js";
 import { MessageCommand } from "../types.js";
 
 export const MsgCommand: MessageCommand = {
     name: "callselectmenu",
     run: (client, message): void => {
+        if (!message.channel || message.channel.type != ChannelType.GuildText) return
+
         message.channel.send({
             content: "Cookies SelectMenu",
             components: [
