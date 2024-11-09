@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc && echo 'Finishing Building'",
+    "dev": "nodemon",
     "start": "node ./dist/bot.js"
   },
   "repository": {
