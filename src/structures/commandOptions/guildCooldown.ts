@@ -1,4 +1,4 @@
-import { EmbedBuilder, Interaction, Message, DiscordClient } from "discord.js";
+import { ChannelType, EmbedBuilder, Interaction, Message, DiscordClient } from "discord.js";
 import { AnyCommand, InteractionTypeOptions } from "../../types.js";
 import { join } from "path";
 import { rootPath } from "../../bot.js";
@@ -22,7 +22,9 @@ export const guildCooldownFN = async(client: DiscordClient, message: Message | I
         return true;
     } else {
         if (command.returnErrors == false || command.returnGuildCooldownError === false) return false;
-        message.channel?.send({
+        if (!message.channel || message.channel.type != ChannelType.GuildText) return false
+
+        message.channel.send({
             embeds: [new EmbedBuilder()
                 .setColor("DarkRed")
                 .setTimestamp()
