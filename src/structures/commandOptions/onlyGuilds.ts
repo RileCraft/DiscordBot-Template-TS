@@ -1,4 +1,4 @@
-import { DiscordClient, EmbedBuilder, Interaction, Message } from "discord.js";
+import { ChannelType, DiscordClient, EmbedBuilder, Interaction, Message } from "discord.js";
 import { AnyCommand } from "../../types.js";
 
 export const onlyGuildsFN = (client: DiscordClient, message: Message | Interaction<"cached">, command: AnyCommand) => {
@@ -7,7 +7,9 @@ export const onlyGuildsFN = (client: DiscordClient, message: Message | Interacti
     if (command.onlyGuilds.some((guildID: string) => message.guild?.id == guildID)) return true;
     else {
         if (command.returnErrors === false || command.returnOnlyGuildsError === false) return false;
-        message.channel?.send({
+        if (!message.channel || message.channel.type != ChannelType.GuildText) return false
+
+        message.channel.send({
             embeds: [new EmbedBuilder()
                 .setColor("DarkRed")
                 .setTimestamp()

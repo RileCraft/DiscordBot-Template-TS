@@ -1,4 +1,4 @@
-import { DiscordClient, EmbedBuilder, Interaction, Message, PermissionsString } from "discord.js";
+import { ChannelType, DiscordClient, EmbedBuilder, Interaction, Message, PermissionsString } from "discord.js";
 import { AnyCommand } from "../../types.js";
 
 export const allUserPermissionsFN = (client: DiscordClient, message: Message | Interaction<"cached">, command: AnyCommand): boolean => {
@@ -8,7 +8,9 @@ export const allUserPermissionsFN = (client: DiscordClient, message: Message | I
     if (!missingPermissions?.length) return true;
     else {
         if (command.returnErrors === false || command.returnAllUserPermissionsError === false) return false;
-        message?.channel?.send({
+        if (!message.channel || message.channel.type != ChannelType.GuildText) return false
+
+        message?.channel.send({
             embeds: [
                 new EmbedBuilder()
                 .setColor("DarkRed")
