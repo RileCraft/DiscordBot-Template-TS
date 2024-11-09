@@ -2,6 +2,7 @@ import { ActivityType, DiscordClient } from "discord.js";
 import { rootPath } from "../bot.js";
 import { ClientEvent, ContextMenu, SlashCommand } from "../types.js";
 import { fileReader } from "../utils/fileReader.js";
+import { LOG_READY_EXPLICIT } from "../config.js";
 import { t } from "tasai";
 
 export const Event: ClientEvent = {
@@ -29,6 +30,9 @@ export const Event: ClientEvent = {
         }, []);
     
         console.log(t.bold.green.toFunction()("[Client] ") + t.bold.blue.toFunction()(`Logged into ${client.user?.tag}`));
+        
+        if (!LOG_READY_EXPLICIT) return
+        
         if ((client.messageCommands?.size ?? 0) > 0) console.log(t.bold.red.toFunction()("[MessageCommands] ") + t.bold.cyan.toFunction()(`Loaded ${(client.messageCommands?.size ?? 0)} MessageCommands with ${t.bold.white.toFunction()(`${client.messageCommands_Aliases?.size} Aliases`)}.`));
         if ((client.events?.size ?? 0) > 0) console.log(t.bold.yellow.toFunction()("[Events] ") + t.bold.magenta.toFunction()(`Loaded ${(client.events?.size ?? 0)} Events.`));
         if ((client.buttonCommands?.size ?? 0) > 0) console.log(t.bold.brightGreen.toFunction()("[ButtonCommands] ") + t.bold.brightYellow.toFunction()(`Loaded ${(client.buttonCommands?.size ?? 0)} Buttons.`));
