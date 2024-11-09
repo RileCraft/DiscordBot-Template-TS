@@ -98,6 +98,9 @@ To get started with the Discord Bot Template, follow these steps:
 3. Once all the required modules are installed, open the `src/config.ts` file and fill in the necessary information.
 4. Run the command `npm run build && npm run start` to start the bot.
 
+You can also use `npm run dev` to run the application in development mode, which will refresh the application after any
+changes. If the interaction elements loading logs are excessive, set `LOG_READY_EXPLICIT` to `false` in `src/config.ts`.
+
 ## Contribution
 
 Contributions to the Discord Bot Template are welcome. To contribute, please follow these guidelines:
